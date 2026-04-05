@@ -138,7 +138,9 @@ class SkinsController < ApplicationController
 
   def set
     if @skin.cached?
-      flash[:notice] = ts("The skin %{title} has been set. This will last for your current session.", title: @skin.title)
+      flash[:notice] = ts("You're now using the %{title} skin. This will last for 2 weeks even if you close your browser. If you'd like to keep it longer, go to the %{link} and select the \"Use\" button at the bottom of the page.",
+                          title: @skin.title,
+                          link: "<a href=\"/skins/#{@skin.id}\">#{@skin.title} skin page</a>").html_safe
       session[:site_skin] = @skin.id
     else
       flash[:error] = ts("Sorry, but only certain skins can be used this way (for performance reasons). Please drop a support request if you'd like %{title} to be added!", title: @skin.title)
